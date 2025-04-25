@@ -1,0 +1,335 @@
+Setting environment for using XAMPP for Windows.
+2022ASP54@CL2-49 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MariaDB [(none)]> SHOW databases;
++--------------------+
+| Database           |
++--------------------+
+| 1223db             |
+| bfl                |
+| book               |
+| bookboat           |
+| bookdb             |
+| books              |
+| companies          |
+| company            |
+| employees          |
+| englishfi          |
+| hospital           |
+| hospitaldb         |
+| icae02             |
+| information_schema |
+| inventary          |
+| it1223db           |
+| library            |
+| librarysystem      |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| retailstore        |
+| smartlibrary       |
+| spjbase            |
+| store              |
+| studentdb          |
+| students           |
+| test               |
+| university         |
++--------------------+
+29 rows in set (0.050 sec)
+
+MariaDB [(none)]> use LibrarySystem;
+Database changed
+MariaDB [LibrarySystem]> create table Authors;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [LibrarySystem]> create table Authors(AuthorID INT primary key,Name Varchar(30),BirthYear INT(6));
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [LibrarySystem]> DESC Authors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| AuthorID  | int(11)     | NO   | PRI | NULL    |       |
+| Name      | varchar(30) | YES  |     | NULL    |       |
+| BirthYear | year(4)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.014 sec)
+MariaDB [LibrarySystem]> INSERT INTO Authors VALUES(1,'J.K.Rowling',1965),
+    -> (2,'GeorgeR.R.Martin',1948),
+    ->  (3,'Agatha Chiristie',1890),
+    -> (4,'Stephen King',1947),
+    -> (5,'Haruki Murukami',1949);
+Query OK, 5 rows affected, 1 warning (0.006 sec)
+Records: 5  Duplicates: 0  Warnings: 1
+
+MariaDB [LibrarySystem]> select*from Authors;
++----------+------------------+-----------+
+| AuthorID | Name             | BirthYear |
++----------+------------------+-----------+
+|        1 | J.K.Rowling      |      1965 |
+|        2 | GeorgeR.R.Martin |      1948 |
+|        3 | Agatha Chiristie |      1890 |
+|        4 | Stephen King     |      1947 |
+|        5 | Haruki Murukami  |      1949 |
++----------+------------------+-----------+
+5 rows in set (0.000 sec)
+
+MariaDB [LibrarySystem]> ALTER TABLE Authors
+    -> ADD Country char(20);
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> desc Authors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| AuthorID  | int(11)     | NO   | PRI | NULL    |       |
+| Name      | varchar(30) | YES  |     | NULL    |       |
+| BirthYear | year(4)     | YES  |     | NULL    |       |
+| Country   | char(20)    | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.015 sec)
+
+MariaDB [LibrarySystem]> select*from Authors;
++----------+------------------+-----------+---------+
+| AuthorID | Name             | BirthYear | Country |
++----------+------------------+-----------+---------+
+|        1 | J.K.Rowling      |      1965 | NULL    |
+|        2 | GeorgeR.R.Martin |      1948 | NULL    |
+|        3 | Agatha Chiristie |      1890 | NULL    |
+|        4 | Stephen King     |      1947 | NULL    |
+|        5 | Haruki Murukami  |      1949 | NULL    |
++----------+------------------+-----------+---------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> alter table Authors
+    -> ADD Age INT
+    -> AFTER Name;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++----------+------------------+------+-----------+---------+
+| AuthorID | Name             | Age  | Birthyear | Country |
++----------+------------------+------+-----------+---------+
+|        1 | J.K.Rowling      | NULL |      1965 | NULL    |
+|        2 | GeorgeR.R.Martin | NULL |      1948 | NULL    |
+|        3 | Agatha Chiristie | NULL |      1890 | NULL    |
+|        4 | Stephen King     | NULL |      1947 | NULL    |
+|        5 | Haruki Murukami  | NULL |      1949 | NULL    |
++----------+------------------+------+-----------+---------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> alter table Authors
+    -> ADD FirstName varchar(30)
+    -> First;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+------+-----------+---------+
+| FirstName | AuthorID | Name             | Age  | Birthyear | Country |
++-----------+----------+------------------+------+-----------+---------+
+| NULL      |        1 | J.K.Rowling      | NULL |      1965 | NULL    |
+| NULL      |        2 | GeorgeR.R.Martin | NULL |      1948 | NULL    |
+| NULL      |        3 | Agatha Chiristie | NULL |      1890 | NULL    |
+| NULL      |        4 | Stephen King     | NULL |      1947 | NULL    |
+| NULL      |        5 | Haruki Murukami  | NULL |      1949 | NULL    |
++-----------+----------+------------------+------+-----------+---------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> UPDATE Authors
+    -> SET Country='UK'
+    -> WHERE AuthorID=1;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+------+-----------+---------+
+| FirstName | AuthorID | Name             | Age  | Birthyear | Country |
++-----------+----------+------------------+------+-----------+---------+
+| NULL      |        1 | J.K.Rowling      | NULL |      1965 | UK      |
+| NULL      |        2 | GeorgeR.R.Martin | NULL |      1948 | NULL    |
+| NULL      |        3 | Agatha Chiristie | NULL |      1890 | NULL    |
+| NULL      |        4 | Stephen King     | NULL |      1947 | NULL    |
+| NULL      |        5 | Haruki Murukami  | NULL |      1949 | NULL    |
++-----------+----------+------------------+------+-----------+---------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> alter table Authors
+    -> drop column Age;
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> alter table Authors
+    -> drop column Country;
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+-----------+
+| FirstName | AuthorID | Name             | Birthyear |
++-----------+----------+------------------+-----------+
+| NULL      |        1 | J.K.Rowling      |      1965 |
+| NULL      |        2 | GeorgeR.R.Martin |      1948 |
+| NULL      |        3 | Agatha Chiristie |      1890 |
+| NULL      |        4 | Stephen King     |      1947 |
+| NULL      |        5 | Haruki Murukami  |      1949 |
++-----------+----------+------------------+-----------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+-----------+
+| FirstName | AuthorID | Name             | Birthyear |
++-----------+----------+------------------+-----------+
+| NULL      |        1 | J.K.Rowling      |      1965 |
+| NULL      |        2 | GeorgeR.R.Martin |      1948 |
+| NULL      |        3 | Agatha Chiristie |      1890 |
+| NULL      |        4 | Stephen King     |      1947 |
+| NULL      |        5 | Haruki Murukami  |      1949 |
++-----------+----------+------------------+-----------+
+5 rows in set (0.000 sec)
+
+MariaDB [LibrarySystem]> alter table Authors
+    -> ADD Age INT
+    -> AFTER Name
+    -> ADD Country Char
+    -> After BirthYear;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ADD Country Char
+After BirthYear' at line 4
+MariaDB [LibrarySystem]> alter table Authors
+    -> ADD Age INT AFTER Name
+    -> ADD Country Char(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ADD Country Char(30)' at line 3
+MariaDB [LibrarySystem]> alter table Authors
+    -> ADD Age INT AFTER Name,
+    -> ADD Country Char(30);
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+------+-----------+---------+
+| FirstName | AuthorID | Name             | Age  | Birthyear | Country |
++-----------+----------+------------------+------+-----------+---------+
+| NULL      |        1 | J.K.Rowling      | NULL |      1965 | NULL    |
+| NULL      |        2 | GeorgeR.R.Martin | NULL |      1948 | NULL    |
+| NULL      |        3 | Agatha Chiristie | NULL |      1890 | NULL    |
+| NULL      |        4 | Stephen King     | NULL |      1947 | NULL    |
+| NULL      |        5 | Haruki Murukami  | NULL |      1949 | NULL    |
++-----------+----------+------------------+------+-----------+---------+
+5 rows in set (0.000 sec)
+
+MariaDB [LibrarySystem]> alter table Authors
+    -> MODIFY BirthYear INT(4);
+Query OK, 0 rows affected (0.006 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> desc Authors;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(30) | YES  |     | NULL    |       |
+| AuthorID  | int(11)     | NO   | PRI | NULL    |       |
+| Name      | varchar(30) | YES  |     | NULL    |       |
+| Age       | int(11)     | YES  |     | NULL    |       |
+| BirthYear | int(4)      | YES  |     | NULL    |       |
+| Country   | char(30)    | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.015 sec)
+
+MariaDB [LibrarySystem]> alter table Authors
+    -> CHANGE column Age Author_Age INT;
+Query OK, 0 rows affected (0.061 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Authors;
++-----------+----------+------------------+------------+-----------+---------+
+| FirstName | AuthorID | Name             | Author_Age | BirthYear | Country |
++-----------+----------+------------------+------------+-----------+---------+
+| NULL      |        1 | J.K.Rowling      |       NULL |      1965 | NULL    |
+| NULL      |        2 | GeorgeR.R.Martin |       NULL |      1948 | NULL    |
+| NULL      |        3 | Agatha Chiristie |       NULL |      1890 | NULL    |
+| NULL      |        4 | Stephen King     |       NULL |      1947 | NULL    |
+| NULL      |        5 | Haruki Murukami  |       NULL |      1949 | NULL    |
++-----------+----------+------------------+------------+-----------+---------+
+5 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> create table Employee(EmpID INT, FirstName varchar(30),LastName varchar(30),HireDate DATE);
+Query OK, 0 rows affected (0.011 sec)
+MariaDB [LibrarySystem]> INSERT INTO Employee VALUES(1,'Alice','Jphnson','2021-01-15'),
+    -> (2,'Bob','Smith','2020-07-30'),
+    -> (3,'Carla','Garcia','2022-03-10'),
+    -> (4,'David','Lee','2019-11-05');
+Query OK, 4 rows affected (0.004 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Employee;
++-------+-----------+----------+------------+
+| EmpID | FirstName | LastName | HireDate   |
++-------+-----------+----------+------------+
+|     1 | Alice     | Jphnson  | 2021-01-15 |
+|     2 | Bob       | Smith    | 2020-07-30 |
+|     3 | Carla     | Garcia   | 2022-03-10 |
+|     4 | David     | Lee      | 2019-11-05 |
++-------+-----------+----------+------------+
+4 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> alter table Employee
+    -> ADD primary Key(EmpID);
+Query OK, 0 rows affected (0.036 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Employee;
++-------+-----------+----------+------------+
+| EmpID | FirstName | LastName | HireDate   |
++-------+-----------+----------+------------+
+|     1 | Alice     | Jphnson  | 2021-01-15 |
+|     2 | Bob       | Smith    | 2020-07-30 |
+|     3 | Carla     | Garcia   | 2022-03-10 |
+|     4 | David     | Lee      | 2019-11-05 |
++-------+-----------+----------+------------+
+4 rows in set (0.000 sec)
+
+MariaDB [LibrarySystem]> desc Employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EmpID     | int(11)     | NO   | PRI | NULL    |       |
+| FirstName | varchar(30) | YES  |     | NULL    |       |
+| LastName  | varchar(30) | YES  |     | NULL    |       |
+| HireDate  | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [LibrarySystem]> alter table Employee
+    -> ADD column Department varchar(30) NOt NULL DEFAULT 'General'
+    -> after LastName;
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Employee;
++-------+-----------+----------+------------+------------+
+| EmpID | FirstName | LastName | Department | HireDate   |
++-------+-----------+----------+------------+------------+
+|     1 | Alice     | Jphnson  | General    | 2021-01-15 |
+|     2 | Bob       | Smith    | General    | 2020-07-30 |
+|     3 | Carla     | Garcia   | General    | 2022-03-10 |
+|     4 | David     | Lee      | General    | 2019-11-05 |
++-------+-----------+----------+------------+------------+
+4 rows in set (0.000 sec)
+MariaDB [LibrarySystem]> alter table Employee
+    -> CHANGE column HireDate Employement_Date DATE;
+Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibrarySystem]> select*from Employee;
++-------+-----------+----------+------------+------------------+
+| EmpID | FirstName | LastName | Department | Employement_Date |
++-------+-----------+----------+------------+------------------+
+|     1 | Alice     | Jphnson  | General    | 2021-01-15       |
+|     2 | Bob       | Smith    | General    | 2020-07-30       |
+|     3 | Carla     | Garcia   | General    | 2022-03-10       |
+|     4 | David     | Lee      | General    | 2019-11-05       |
++-------+-----------+----------+------------+------------------+
+4 rows in set (0.000 sec)
+
